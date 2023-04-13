@@ -11,6 +11,7 @@ class Bernoulli_Environment:
 
     #It select the reward for the given arm according to a Bernoulli distribution with the given mean
     def receive_reward(self, arm):
+
         return bernoulli.rvs(self.__means_dict[arm])
 
 class EpsGreedy_Learner:
