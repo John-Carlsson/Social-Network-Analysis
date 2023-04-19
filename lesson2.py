@@ -10,9 +10,9 @@ def hierarchical(G):
         for v in G.nodes():
             if u != v:
                 if (u, v) in G.edges() or (v, u) in G.edges():
-                    pq.add(frozenset([frozenset(u), frozenset(v)]), 0)
+                    pq.put(frozenset([frozenset(u), frozenset(v)]), 0)
                 else:
-                    pq.add(frozenset([frozenset(u), frozenset(v)]), 1)
+                    pq.put(frozenset([frozenset(u), frozenset(v)]), 1)
 
     # Start with a cluster for each node
     clusters = set(frozenset(u) for u in G.nodes())
@@ -20,7 +20,7 @@ def hierarchical(G):
     done = False
     while not done:
         # Merge closest clusters
-        s = list(pq.pop())
+        s = list(pq.get())
         clusters.remove(s[0])
         clusters.remove(s[1])
 
@@ -29,9 +29,9 @@ def hierarchical(G):
             e1 = pq.remove(frozenset([s[0], w]))
             e2 = pq.remove(frozenset([s[1], w]))
             if e1 == 0 or e2 == 0:
-                pq.add(frozenset([s[0] | s[1], w]), 0)
+                pq.put(frozenset([s[0] | s[1], w]), 0)
             else:
-                pq.add(frozenset([s[0] | s[1], w]), 1)
+                pq.put(frozenset([s[0] | s[1], w]), 1)
 
         clusters.add(s[0] | s[1])
 
