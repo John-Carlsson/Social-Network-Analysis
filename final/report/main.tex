@@ -1,0 +1,179 @@
+\documentclass[conference]{IEEEtran}
+% Packages
+\usepackage{amsmath} % for mathematical equations
+\usepackage{graphicx} % for including images
+\usepackage{listings}
+\usepackage{mathtools}
+
+\begin{document}
+
+
+
+
+% Title
+\title{Final Project}
+\author{John Carlsson & Lukas Runt}
+\date{\today}
+
+
+
+\maketitle
+
+% Abstract
+\begin{abstract}
+The aim of the project was to solve two tasks. The first to identify how a certain network was generated
+and the other to maximize the cumulative revenue obtained auctions over a marketing campaign. The results showed
+that the network was generated using a configuration model with the degrees beeing normaly distributed around
+23 with a standard deviation of 5. To maximize the cumulative revenue bla bla and bla was used
+\end{abstract}
+
+% Introduction
+\section{Introduction}
+This section introduces the tasks at hand.
+
+\begin{itemize}
+    \item Task1:\\ Consider the network N represented in the file net\_x, where x is your group number.
+    This network has been generated with one of the network models seen during the course.
+    You have to analyze the network N with the network mining tools (the ones shortlisted in the
+    midterm project) and guess which model has been used for creating it. Your guess has to be
+    supported by an appropriate set of experiments to confirm that networks generated with the
+    proposed model have characteristics similar to N (note that you have to guess also the parameters of
+    the model). \\
+
+    \item Task2:\\ Your company is specialized in producing applications for social networks. You have been assigned
+    the task of selling these applications with the goal of maximizing the revenue for the company. The
+    contract between your company and the social network allows you to access to your preferred nodes
+    over the network, and to spread whichever information you want from that node. However, the
+    contract also constraints you to access to only one node every day. Then, your strategy is every day
+    to select a node and spread from this node information about a network auction for selling k items
+    (i.e., each day you start a different auction). Clearly, the information spreading process is not
+    deterministic: in fact, even if a node invites a neighbor into the auction, it is not for sure that the
+    latter will participate in the auction. We assume that the probability that a neighbor accepts to
+    participate depends on the strength of the relationship among the two communicating nodes.
+    Unfortunately, while you know the topology of the network, you do not know the strength of these
+    relationships.\\ \\
+    Hence, you have to choose every day the node from which to start a social network auction in order
+    to maximize the cumulative revenue obtained by all the auctions over the entire campaign. To this
+    aim you are required at each day to both be able to reach agents with large valuation about the items
+    you are selling and to selects a kind of auction in order to maximize the amount of money that you
+    are able to collect from them. Notice that you can use different types of auctions in different days.
+
+\end{itemize}
+
+% Methodology
+\section{Task1}
+This section describes the methodology used in task 1.
+
+\subsection{Analysis}
+First an analysis was made of the given network to see the overall structure. This was made with the NetworkX
+library for python, where we quickly and easily can get some information about the graph.
+
+
+The network has the following characteristics:
+\begin{center}
+    \begin{tabular}{|c|c|}
+        
+        \hline
+        Number of nodes & 20 000 \\
+        \hline
+        Number of edges & 227739 \\
+        \hline
+        Directed? & False \\
+        \hline
+        Connected? & True \\
+        \hline
+    \end{tabular}
+
+\end{center}
+
+We see that the graph is one giant component that is undirected.
+
+
+By looking at the distribution of neighbors we get the following graph.
+\begin{figure}[h]
+    \centering
+    \caption{Number of neighbors}
+\includegraphics[scale = 0.55]{/Users/johncarlsson/Desktop/Social Network Analysis/final/figures/histo_facit.png}
+\end{figure}
+
+The number of neighbors that each node has gives us clues as to how the graph was constructed, if the degrees follow
+a distribution, we know that a configuration model was used to construct the graph. For example the power law,
+which a lot of natural phenomena tends to follow. However here we se a normal distribution centered around 23.
+
+\subsection[short]{Experiments}
+Now that we know how the graph looks, can we replicate it? 
+By creating a list of degrees based on a normal distribution centered around 23 and with a 
+standard deviation of 5 we get a graph that follows this degree distribution:
+
+\begin{figure}[h]
+    \centering
+    \caption{Number of neighbors expirimental graph}
+\includegraphics[scale = 0.55]{/Users/johncarlsson/Desktop/Social Network Analysis/final/figures/histo_fit.png}
+\end{figure}
+
+They are evidently very similar.
+
+Now looking at connectivity and if the graph is directed. We get the same results as for the original graph.
+
+by comparing different measures of centrality, here the min and max values are shown, we can see 
+that the graphs are indeed very similar.
+
+\begin{center}
+    \begin{tabular}{|c|c|c|}
+        
+        \hline
+        Centrality & Original network & Expirimental network \\
+        \hline
+        Degree & 0.2323 & 0.2323 \\
+        \hline
+        Closeness & 0.2323 & 0.2323 \\
+        \hline
+        Betweenness & 0.2323 & 0.2323 \\
+        \hline
+    \end{tabular}
+
+\end{center}
+
+% Results
+
+
+\section{Task2}
+This section describes the methodology used in task 1.
+
+\subsection{Analysis}
+First an analysis was
+
+\subsection{Experiments}
+words\\
+words
+
+\section{Results & Conclusion}
+This section presents the results of the project.
+
+\subsection[short]{Task 1}
+Based on the previous chapter, we believe that the network was created by using a configuration model.
+The parameters for the model was the following:
+
+\begin{center}
+    \begin{tabular}{|c|c|}
+        \hline
+        Parameter & Value \\
+        \hline
+        Nodes & 20000 \\
+        \hline
+        Degree & \sim \mathcal{N}(\mu,\,\sigma^{2}) \\
+        \hline
+        \mu & 23 \\
+        \hline
+        \sigma & 5\\
+        \hline
+        
+    \end{tabular}
+
+\end{center}
+
+Degree is a list containing the number of neighbors for each node.
+
+
+
+\end{document}
