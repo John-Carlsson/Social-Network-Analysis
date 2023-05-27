@@ -3,7 +3,6 @@ import random
 from lesson5 import randomG
 from final_mockup import SocNetMec
 
-ctrs = dict()
 
 def input_data():
     n = 100

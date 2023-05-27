@@ -1,8 +1,8 @@
 # Fdb version 3
-["pdflatex"] 1685025199 "/Users/johncarlsson/Desktop/Social Network Analysis/final/report/main.tex" "main.pdf" "main" 1685025199
-  "/Users/johncarlsson/Desktop/Social Network Analysis/final/figures/histo_facit.png" 1685015902 15014 a1dd1d3f5e44ed7f304bbc4a71502950 ""
-  "/Users/johncarlsson/Desktop/Social Network Analysis/final/figures/histo_fit.png" 1685018829 18279 b77fc78c6002a660f24a70189e3011ba ""
-  "/Users/johncarlsson/Desktop/Social Network Analysis/final/report/main.tex" 1685025198 6430 7b91f4837438d80dbe94e4ac22056d3e ""
+["pdflatex"] 1685163252 "/Users/johncarlsson/Desktop/Social Network Analysis/final/report/main.tex" "main.pdf" "main" 1685163252
+  "/Users/johncarlsson/Desktop/Social Network Analysis/final/figures/histo_facit.png" 1685109860 15014 a1dd1d3f5e44ed7f304bbc4a71502950 ""
+  "/Users/johncarlsson/Desktop/Social Network Analysis/final/figures/histo_fit.png" 1685163251 17727 8b308eb45e455360c5ffabea62a4b8e9 ""
+  "/Users/johncarlsson/Desktop/Social Network Analysis/final/report/main.tex" 1685100853 6430 7b91f4837438d80dbe94e4ac22056d3e ""
   "/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2022/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/tfm/adobe/times/ptmb7t.tfm" 1136768653 2172 fd0c924230362ff848a33632ed45dc23 ""
@@ -56,8 +56,8 @@
   "/usr/local/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1647878959 4410336 7d30a02e9fa9a16d7d1f8d037ba69641 ""
   "/usr/local/texlive/2022/texmf-var/web2c/pdftex/pdflatex.fmt" 1678553808 2826450 8b9a1f4cf6f0318c113ff4fac3b4757f ""
   "/usr/local/texlive/2022/texmf.cnf" 1647878952 577 209b46be99c9075fd74d4c0369380e8c ""
-  "main.aux" 1685025199 32 3985256e7290058c681f74d7a3565a19 "pdflatex"
-  "main.tex" 1685025198 6430 7b91f4837438d80dbe94e4ac22056d3e ""
+  "main.aux" 1685163252 32 3985256e7290058c681f74d7a3565a19 "pdflatex"
+  "main.tex" 1685100853 6430 7b91f4837438d80dbe94e4ac22056d3e ""
   (generated)
   "main.aux"
   "main.log"

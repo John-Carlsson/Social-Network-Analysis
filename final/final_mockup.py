@@ -23,7 +23,7 @@ class SocNetMec:
     #MOCK-UP IMPLEMENTATION: It returns at each time step the first node
     def __init(self, t):
         for u in self.G.nodes():
-            return u, __mock_auction
+            return u,self. __mock_auction
 
     #MOCK-UP IMPLEMENTATION: It returns bid 1 and no report
     def __invite(t, u, v, auction, prob, val):
