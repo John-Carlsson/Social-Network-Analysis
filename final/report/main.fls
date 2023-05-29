@@ -270,6 +270,11 @@ INPUT /Users/johncarlsson/Desktop/Social Network Analysis/final/figures/histo_fa
 INPUT /Users/johncarlsson/Desktop/Social Network Analysis/final/figures/histo_facit.png
 OUTPUT main.pdf
 INPUT /Users/johncarlsson/Desktop/Social Network Analysis/final/figures/histo_facit.png
+INPUT /Users/johncarlsson/Desktop/Social Network Analysis/final/figures/distribution_plot.png
+INPUT /Users/johncarlsson/Desktop/Social Network Analysis/final/figures/distribution_plot.png
+INPUT /Users/johncarlsson/Desktop/Social Network Analysis/final/figures/distribution_plot.png
+INPUT /Users/johncarlsson/Desktop/Social Network Analysis/final/figures/distribution_plot.png
+INPUT /Users/johncarlsson/Desktop/Social Network Analysis/final/figures/distribution_plot.png
 INPUT /usr/local/texlive/2022/texmf-dist/fonts/vf/adobe/times/ptmr7t.vf
 INPUT /usr/local/texlive/2022/texmf-dist/fonts/tfm/adobe/times/ptmr8r.tfm
 INPUT /usr/local/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map

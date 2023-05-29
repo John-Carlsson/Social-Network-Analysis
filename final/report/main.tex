@@ -97,13 +97,21 @@ By looking at the distribution of neighbors we get the following graph.
 \end{figure}
 
 The number of neighbors that each node has gives us clues as to how the graph was constructed, if the degrees follow
-a distribution, we know that a configuration model was used to construct the graph. For example the power law,
-which a lot of natural phenomena tends to follow. However here we se a normal distribution centered around 23.
+a distribution, we know that a configuration model was used to construct the graph. So we plot the given graph and compare it
+to some common distributions.
+
+\begin{figure}[h]
+    \centering
+    \caption{Comparison of distributions}
+\includegraphics[scale = 0.55]{/Users/johncarlsson/Desktop/Social Network Analysis/final/figures/distribution_plot.png}
+\end{figure}
 
 \subsection[short]{Experiments}
-Now that we know how the graph looks, can we replicate it? 
-By creating a list of degrees based on a normal distribution centered around 23 and with a 
-standard deviation of 5 we get a graph that follows this degree distribution:
+Now that we know how the graph looks, can we replicate it? We from the prvious chapter that the graph strongly
+ressembles a normal distribution and we can then use a configuration model to create a similar graph.
+We can get the precise distribution and mean from the model which are 22.77 and 5.15.
+By creating one hundred lists of degrees based these parameters and taking the average and creating a graph with 
+a configuration model, we get the following graph of neighbour distribution.
 
 \begin{figure}[h]
     \centering
