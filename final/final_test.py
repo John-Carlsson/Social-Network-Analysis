@@ -38,10 +38,12 @@ def prob(u, v):
 def valf(t, u):
     return val[t][u]
 
-G, k, T, val, p = input_data()
-snm=SocNetMec(G, k, T)
-revenue = 0
-for step in range(T):
-    revenue += snm.run(step, prob, valf)
-        
-print(revenue)
+if __name__ == '__main__':
+    G, k, T, val, p = input_data()
+    snm = SocNetMec(G, k, T)
+    revenue = 0
+    for step in range(T):
+        revenue = revenue + snm.run(step, prob, valf)
+
+    print(revenue)
+

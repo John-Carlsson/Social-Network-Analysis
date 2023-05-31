@@ -27,7 +27,7 @@ class SocNetMec:
     @:return auction = random type of the auction
     """
     def __init(self, t):
-        u = random.choice(list(G.nodes()))
+        u = random.choice(list(self.G.nodes()))
         auction = self.choose_auction_format(t)
         return u, auction
 
@@ -75,7 +75,7 @@ class SocNetMec:
         reports = {}
         seller_net = list()
         start_node, auction = self.__init(t)
-        start_node_neighbors = G.neighbors(start_node)
+        start_node_neighbors = self.G.neighbors(start_node)
         reports[start_node] = start_node_neighbors
         #start node inviting
         for start_node_neighbor in start_node_neighbors:
@@ -93,7 +93,7 @@ class SocNetMec:
                     bids[report] = bv
                     reports[report] = Sv
                     seller_net.append(report)
-        return auction(seller_net, reports, bids)
+        return auction(self.k, seller_net, reports, bids)
 
     """
     Method returns neighbors of vertex v
@@ -102,7 +102,7 @@ class SocNetMec:
     @:return list of neighbors what knows about auction
     """
     def get_neighbors(self, v, truthful_reporting):
-        neighbors = list(G.neighbors(v))
+        neighbors = list(self.G.neighbors(v))
         if truthful_reporting:
             return neighbors
         else:
@@ -179,21 +179,3 @@ class SocNetMec:
         # Step 3: Apply Neighbor Externalities
 
         return allocation, payments
-
-"""
-Loading of graph
-:param: file is name of the file
-"""
-def load_graph(file):
-    G = nx.Graph()
-    with open(file, 'r') as f:
-        for s in f.readlines():
-            G.add_edge(s.split()[0], s.split()[1])
-    return G
-
-
-
-if __name__ == '__main__':
-    G = load_graph('net_3')
-    print(G)
-    print(len(G.nodes))
