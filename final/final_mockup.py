@@ -62,11 +62,38 @@ class SocNetMec:
             Sv = self.get_neighbors(v, auction == self.vcg_auction)
             return bv, Sv
         else:
-            return False
+            return False, False
 
-    #NOT IMPLEMENTED. It simply adds to the revenue a random integer
+    """
+    Method starts the auction in timestamp t and returns revenue of the auction
+    @:param t = timestamp
+    @:param prob = probability function
+    @:param val = value function
+    """
     def run(self, t, prob, val):
-        return random.randint(1, 10)
+        bids = {}
+        reports = {}
+        seller_net = list()
+        start_node, auction = self.__init(t)
+        start_node_neighbors = G.neighbors(start_node)
+        reports[start_node] = start_node_neighbors
+        #start node inviting
+        for start_node_neighbor in start_node_neighbors:
+            bv, Sv = self.__invite(t, start_node, start_node_neighbor, auction, prob, val)
+            if bv != False:
+                bids[start_node_neighbor] = bv
+                reports[start_node_neighbor] = Sv
+                seller_net.append(start_node_neighbor)
+        #bidders invites others
+        for seller in seller_net:
+            seller_reports = reports[seller]
+            for report in seller_reports:
+                bv, Sv = self.__invite(t, seller, report, auction, prob, val)
+                if bv != False:
+                    bids[report] = bv
+                    reports[report] = Sv
+                    seller_net.append(report)
+        return auction(seller_net, reports, bids)
 
     """
     Method returns neighbors of vertex v
