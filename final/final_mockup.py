@@ -44,7 +44,17 @@ class SocNetMec:
         else:
             return self.mudar_auction
 
-
+    """
+    Method invites next vertex, if vertex is invited then returns the bid and neighbors
+    @:param t = timestamp
+    @:param u = vertex u
+    @:param v = vertex v
+    @:param auction = auction type 
+    @:param prob = probability method of connection
+    @:param val = valuation method generating the bid
+    @:return bv = bit of v
+    @:return Sv = neighbors of v who knows about auction
+    """
     def __invite(self, t, u, v, auction, prob, val):
         if prob(u,v):
             truthful_val = val(t, v)
