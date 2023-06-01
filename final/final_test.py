@@ -8,7 +8,7 @@ def input_data():
     n = 100
     G = randomG(n, 0.3) #This will be updated to the network model of net_x
     k = 5
-    T = 5000
+    T = 5
 
     #for the oracle val
     val = dict()
@@ -38,12 +38,30 @@ def prob(u, v):
 def valf(t, u):
     return val[t][u]
 
+"""
+Counting the revenue from allocation and payment
+@:param allocation = that is a dictionary that has as keys the strings identifying each of the bidders
+that submitted a bid, and as value a boolean True if this bidder is allocated one of the items,
+and False otherwise.
+@:param payment = that is a dictionary that has as keys the strings identifying each of the bidders that
+submitted a bid, and as value the price that she pays. Here, a positive price means that the
+bidder is paying to the seller, while a negative price means that the seller is paying to the
+bidder.
+@:return revenue
+"""
+def getRevenue(allocation, payment):
+    revenue = 0
+    for key in allocation:
+        if allocation[key]:
+            revenue += payment[key]
+    return revenue
+
 if __name__ == '__main__':
     G, k, T, val, p = input_data()
     snm = SocNetMec(G, k, T)
     revenue = 0
     for step in range(T):
-        revenue = revenue + snm.run(step, prob, valf)
-
+        allocation, payment = snm.run(step, prob, valf)
+        revenue += getRevenue(allocation, payment)
     print(revenue)
 
