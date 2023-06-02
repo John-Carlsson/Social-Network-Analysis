@@ -1,3 +1,5 @@
+from queue import Queue
+
 import networkx as nx
 import random
 
@@ -37,8 +39,8 @@ class SocNetMec:
     @:return auction type
     """
     def choose_auction_format(self, t):
-        if t % 3 == 0:
-            return self.vcg_auction
+        if t % 1 == 0:
+            return self.vcg_auction2
         elif t % 3 == 1:
             return self.mudan_auction
         else:
@@ -118,6 +120,66 @@ class SocNetMec:
     """
     def random_boolean(self, probability):
         return random.choices([True, False], [probability, 1 - probability])
+
+    def vcg_auction2(self, k, seller_net, reports, bids):
+        payments = {}
+        allocation = {}
+        for seller in seller_net:
+            allocation[seller] = False
+            payments[seller] = 0
+
+        # allocation
+        sorted_bidders = dict(sorted(bids.items(), key=lambda x: x[1], reverse=True))
+        sorted_bidders = list(sorted_bidders.items())
+        if len(bids) == 0:
+            return allocation, payments
+        if k < len(bids):
+            for i in range(k):
+                key, value = sorted_bidders[i]
+                allocation[key] = True
+                payments[key] = value
+        else:
+            for i in range(len(bids)):
+                key, value = sorted_bidders[i]
+                allocation[key] = True
+                payments[key] = value
+        # bfs - measuring distance
+        """
+        start = random.randint(0, len(seller_net) - 1)
+        auction = 0
+        for winner in winners:
+            distance = {}
+            for seller in seller_net:
+                distance[seller] = -1
+            queue = Queue()
+            queue.put(seller_net[start])
+            distance[seller_net[start]] = 0
+            while queue:
+                vertex = queue.get()
+                if vertex == winner:
+                    distance[winner] = distance[vertex] + 1
+                    payments[winner] = bids[winner][auction] - distance[winner]
+                    print(distance)
+                    break
+                link = reports[vertex]
+                for l in link:
+                    if distance[l] == -1:
+                        distance[l] = distance[vertex] + 1
+                        queue.put(l)
+            auction += 1
+
+        # computing social welfare
+        social_welfare = 0
+        #for i in range(k):
+            #social_welfare += items[i] * bids[winners[i]][i]
+
+        print(social_welfare)
+
+        print(allocation)
+        print(payments)
+        """
+
+        return allocation, payments
 
     def vcg_auction(self, k, seller_net, reports, bids):
         # Step 1: Calculate Payments
