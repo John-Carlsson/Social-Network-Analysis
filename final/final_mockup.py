@@ -130,9 +130,6 @@ class SocNetMec:
         return random.choices([True, False], [probability, 1 - probability])
 
     def vcg_auction(self, k, seller_net, reports, bids):
-        print("Reports: ")
-        print(reports)
-
         payments = {}
         allocation = {}
         for seller in seller_net:
@@ -172,8 +169,8 @@ class SocNetMec:
                     distance[l] = distance[vertex] + 1
                     queue.put(l)
 
-        print("Distance: ")
-        print(distance)
+        for payment in payments:
+            payments[payment] = payments[payment] - distance[payment] * self.PAYING_FOR_REPORT
 
         return allocation, payments
 
