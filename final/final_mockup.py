@@ -122,16 +122,7 @@ class SocNetMec:
     def random_boolean(self, probability):
         return random.choices([True, False], [probability, 1 - probability])
 
-    def vcg_auction2(self, k, seller_net, reports, bids):
-        print("Report:")
-        print(reports)
-        print(len(reports))
-        print("Bids:")
-        print(bids)
-        print(len(bids))
-        print("Sellernet:")
-        print(seller_net)
-        print(len(seller_net))
+    def vcg_auction(self, k, seller_net, reports, bids):
         payments = {}
         allocation = {}
         for seller in seller_net:
@@ -153,58 +144,6 @@ class SocNetMec:
                 key, value = sorted_bidders[i]
                 allocation[key] = True
                 payments[key] = value
-        # bfs - measuring distance
-        start = next(iter(reports))
-        distance = {}
-        for seller in seller_net:
-            distance[seller] = -1
-        queue = Queue()
-        distance[start] = 0
-        print(start)
-        print(reports[start])
-        for vertex in reports[start]:
-            if vertex in seller_net:
-                distance[vertex] = 1
-                queue.put(vertex)
-        print(distance)
-        while len(queue.queue) > 0:
-            vertex = queue.get()
-            if vertex in seller_net:
-                link = reports[vertex]
-                if link in seller_net:
-                    for l in link:
-                        print(distance[l])
-                        if distance[l] == -1:
-                            distance[l] = distance[vertex] + 1
-                            queue.put(l)
-
-        print(distance)
-        print(allocation)
-        print(payments)
-
-        return allocation, payments
-
-    def vcg_auction(self, k, seller_net, reports, bids):
-        # Step 1: Calculate Payments
-        payments = {}
-        externalities = {}
-        for bidder in seller_net:
-            bids_except_bidder = {key: bids[key] for key in bids if key != bidder}
-            sorted_bids_except_bidder = sorted(bids_except_bidder, key=bids_except_bidder.get, reverse=True)
-            if bidder in sorted_bids_except_bidder[:k]:
-                allocated_bidder = sorted_bids_except_bidder[:k].index(bidder)
-                payment = sum(bids_except_bidder[key] for key in sorted_bids_except_bidder[:k]) - allocated_bidder
-                payments[bidder] = payment
-                externalities[bidder] = sum(bids_except_bidder[key] for key in sorted_bids_except_bidder[k:]) - k
-
-        # Step 2: Calculate Allocation
-        allocation = {bidder: bidder in sorted_bids_except_bidder[:k] for bidder in seller_net}
-
-        # Step 3: Apply Neighbor Externalities
-        for bidder, neighbor_bidders in reports.items():
-            for neighbor_bidder in neighbor_bidders:
-                if neighbor_bidder in externalities:
-                    payments[bidder] += externalities[neighbor_bidder]
 
         return allocation, payments
 
