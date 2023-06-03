@@ -5,6 +5,7 @@ import networkx as nx
 import random
 
 class SocNetMec:
+    PAYING_FOR_REPORT = 10
     
     def __init__(self, G, T, k):
         self.G = G
@@ -102,8 +103,6 @@ class SocNetMec:
                         bids[report] = bv
                         neighbors[report] = Sv
                         seller_net.append(report)
-        print(reports)
-        print(neighbors)
         return auction(self.k, seller_net, reports, bids)
 
     """
@@ -131,6 +130,9 @@ class SocNetMec:
         return random.choices([True, False], [probability, 1 - probability])
 
     def vcg_auction(self, k, seller_net, reports, bids):
+        print("Reports: ")
+        print(reports)
+
         payments = {}
         allocation = {}
         for seller in seller_net:
@@ -152,6 +154,26 @@ class SocNetMec:
                 key, value = sorted_bidders[i]
                 allocation[key] = True
                 payments[key] = value
+
+        # bfs - measuring distance
+        start = next(iter(reports))
+        distance = {}
+        for seller in seller_net:
+            distance[seller] = -1
+        queue = Queue()
+        distance[start] = 0
+        print(reports[start])
+        queue.put(start)
+        while len(queue.queue) > 0:
+            vertex = queue.get()
+            link = reports[vertex]
+            for l in link:
+                if distance[l] == -1:
+                    distance[l] = distance[vertex] + 1
+                    queue.put(l)
+
+        print("Distance: ")
+        print(distance)
 
         return allocation, payments
 
