@@ -40,7 +40,7 @@ class SocNetMec:
     """
     def choose_auction_format(self, t):
         if t % 1 == 0:
-            return self.vcg_auction2
+            return self.vcg_auction
         elif t % 3 == 1:
             return self.mudan_auction
         else:
