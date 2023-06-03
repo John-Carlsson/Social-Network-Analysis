@@ -1,4 +1,5 @@
 from queue import Queue
+from typing import Dict
 
 import networkx as nx
 import random
@@ -74,28 +75,35 @@ class SocNetMec:
     """
     def run(self, t, prob, val):
         bids = {}
-        reports = {}
+        reports: Dict[str, list] = {}
+        neighbors = {}
         seller_net = list()
         start_node, auction = self.__init(t)
         start_node_neighbors = self.G.neighbors(start_node)
-        reports[start_node] = self.G.neighbors(start_node)
+        neighbors[start_node] = self.G.neighbors(start_node)
+        reports[start_node] = []
         #start node inviting
         for start_node_neighbor in start_node_neighbors:
             bv, Sv = self.__invite(t, start_node, start_node_neighbor, auction, prob, val)
             if bv != False:
+                reports[start_node].append(start_node_neighbor)
                 bids[start_node_neighbor] = bv
-                reports[start_node_neighbor] = Sv
+                neighbors[start_node_neighbor] = Sv
                 seller_net.append(start_node_neighbor)
         #bidders invites others
         for seller in seller_net:
-            seller_reports = reports[seller]
+            seller_reports = neighbors[seller]
+            reports[seller] = []
             for report in seller_reports:
                 if report not in seller_net:
                     bv, Sv = self.__invite(t, seller, report, auction, prob, val)
                     if bv != False:
+                        reports[seller].append(report)
                         bids[report] = bv
-                        reports[report] = Sv
+                        neighbors[report] = Sv
                         seller_net.append(report)
+        print(reports)
+        print(neighbors)
         return auction(self.k, seller_net, reports, bids)
 
     """
