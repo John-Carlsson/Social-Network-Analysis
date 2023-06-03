@@ -78,7 +78,7 @@ class SocNetMec:
         seller_net = list()
         start_node, auction = self.__init(t)
         start_node_neighbors = self.G.neighbors(start_node)
-        reports[start_node] = start_node_neighbors
+        reports[start_node] = self.G.neighbors(start_node)
         #start node inviting
         for start_node_neighbor in start_node_neighbors:
             bv, Sv = self.__invite(t, start_node, start_node_neighbor, auction, prob, val)
@@ -90,11 +90,12 @@ class SocNetMec:
         for seller in seller_net:
             seller_reports = reports[seller]
             for report in seller_reports:
-                bv, Sv = self.__invite(t, seller, report, auction, prob, val)
-                if bv != False:
-                    bids[report] = bv
-                    reports[report] = Sv
-                    seller_net.append(report)
+                if report not in seller_net:
+                    bv, Sv = self.__invite(t, seller, report, auction, prob, val)
+                    if bv != False:
+                        bids[report] = bv
+                        reports[report] = Sv
+                        seller_net.append(report)
         return auction(self.k, seller_net, reports, bids)
 
     """
@@ -122,6 +123,15 @@ class SocNetMec:
         return random.choices([True, False], [probability, 1 - probability])
 
     def vcg_auction2(self, k, seller_net, reports, bids):
+        print("Report:")
+        print(reports)
+        print(len(reports))
+        print("Bids:")
+        print(bids)
+        print(len(bids))
+        print("Sellernet:")
+        print(seller_net)
+        print(len(seller_net))
         payments = {}
         allocation = {}
         for seller in seller_net:
@@ -144,40 +154,33 @@ class SocNetMec:
                 allocation[key] = True
                 payments[key] = value
         # bfs - measuring distance
-        """
-        start = random.randint(0, len(seller_net) - 1)
-        auction = 0
-        for winner in winners:
-            distance = {}
-            for seller in seller_net:
-                distance[seller] = -1
-            queue = Queue()
-            queue.put(seller_net[start])
-            distance[seller_net[start]] = 0
-            while queue:
-                vertex = queue.get()
-                if vertex == winner:
-                    distance[winner] = distance[vertex] + 1
-                    payments[winner] = bids[winner][auction] - distance[winner]
-                    print(distance)
-                    break
+        start = next(iter(reports))
+        distance = {}
+        for seller in seller_net:
+            distance[seller] = -1
+        queue = Queue()
+        distance[start] = 0
+        print(start)
+        print(reports[start])
+        for vertex in reports[start]:
+            if vertex in seller_net:
+                distance[vertex] = 1
+                queue.put(vertex)
+        print(distance)
+        while len(queue.queue) > 0:
+            vertex = queue.get()
+            if vertex in seller_net:
                 link = reports[vertex]
-                for l in link:
-                    if distance[l] == -1:
-                        distance[l] = distance[vertex] + 1
-                        queue.put(l)
-            auction += 1
+                if link in seller_net:
+                    for l in link:
+                        print(distance[l])
+                        if distance[l] == -1:
+                            distance[l] = distance[vertex] + 1
+                            queue.put(l)
 
-        # computing social welfare
-        social_welfare = 0
-        #for i in range(k):
-            #social_welfare += items[i] * bids[winners[i]][i]
-
-        print(social_welfare)
-
+        print(distance)
         print(allocation)
         print(payments)
-        """
 
         return allocation, payments
 
