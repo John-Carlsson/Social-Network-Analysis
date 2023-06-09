@@ -60,7 +60,7 @@ class SocNetMec:
     """
     def choose_auction_format(self, t):
         if t % 1 == 0:
-            return self.mudan_auction
+            return self.mudar_auction
         elif t % 3 == 1:
             return self.mudan_auction
         else:
@@ -217,15 +217,17 @@ class SocNetMec:
         return allocation, payments
 
     def mudar_auction(self, k, seller_net, reports, bids):
-        # Step 1: Calculate Random Allocation
-        allocation = {bidder: False for bidder in seller_net}
-        allocated_bidders = random.sample(seller_net, min(k, len(seller_net)))
-        for bidder in allocated_bidders:
-            allocation[bidder] = True
+        # Step 1: Find the k highest bidders
+        highest_bidders = sorted(bids, key=bids.get, reverse=True)[:k]
 
-        # Step 2: Calculate Random Payments
-        payments = {bidder: -bids[bidder] if allocation[bidder] else 0 for bidder in seller_net}
+        # Step 2: Calculate the clearing price
+        if len(highest_bidders) > 0:
+            clearing_price = bids[highest_bidders[-1]]
+        else:
+            clearing_price = 0
 
-        # Step 3: Apply Neighbor Externalities
+        # Step 3: Allocate items and calculate payments
+        allocation = {bidder: bidder in highest_bidders for bidder in bids}
+        payments = {bidder: clearing_price - bids[bidder] if bidder in highest_bidders else 0 for bidder in bids}
 
         return allocation, payments
