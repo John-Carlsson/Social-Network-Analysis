@@ -3,10 +3,20 @@ import random
 from lesson5 import randomG
 from final_mockup import SocNetMec
 
+"""
+Method reads file and creating a graph
+:param: fileName = name of the file
+:return: graph
+"""
+def read_graph(fileName):
+    G = nx.Graph()
+    with open(fileName, 'r') as f:
+        for s in f.readlines():
+            G.add_edge(s.split()[0], s.split()[1])
+    return G
 
 def input_data():
-    n = 100
-    G = randomG(n, 0.3) #This will be updated to the network model of net_x
+    G = read_graph('net_3')
     k = 5
     T = 10
 

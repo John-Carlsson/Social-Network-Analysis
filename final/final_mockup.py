@@ -13,7 +13,6 @@ class SocNetMec:
         self.T = T
         self.k = k
 
-    #MOCK-UP IMPLEMENTATION: It assigns the item to the first k bidders and assigns payment 0 to every node
     def __mock_auction(self, k, seller_net, reports, bids):
         allocation = dict()
         payment = dict()
@@ -59,8 +58,8 @@ class SocNetMec:
     @:return auction type
     """
     def choose_auction_format(self, t):
-        if t % 1 == 0:
-            return self.mudar_auction
+        if t % 3 == 0:
+            return self.vcg_auction
         elif t % 3 == 1:
             return self.mudan_auction
         else:
@@ -147,6 +146,17 @@ class SocNetMec:
     def random_boolean(self, probability):
         return random.choices([True, False], [probability, 1 - probability])
 
+    """
+    Run the VCG auction algorithm
+    :param k: is the number of item to sell
+    :param seller_net: is a set of strings each identifying a different bidder
+    :param reports: is a dictionary whose keys are strings each identifying a different bidder and whose
+    values are sets of strings representing the set of bidders to which the bidder identified by the
+    key reports the information about the auction
+    :param bids: is a dictionary whose keys are strings each identifying a different bidder and whose
+    values are numbers defining the bid of the bidder identified by that key
+    :return: allocation = true if bidder has product false if not and payment = the value of the revenue from the buyer
+    """
     def vcg_auction(self, k, seller_net, reports, bids):
         payments = {}
         allocation = {}
@@ -177,7 +187,6 @@ class SocNetMec:
             distance[seller] = -1
         queue = Queue()
         distance[start] = 0
-        print(reports[start])
         queue.put(start)
         while len(queue.queue) > 0:
             vertex = queue.get()
@@ -192,7 +201,19 @@ class SocNetMec:
 
         return allocation, payments
 
+    """
+    Run the MUDAN auction algorithm.
+    :param k: is the number of item to sell
+    :param seller_net: is a set of strings each identifying a different bidder
+    :param reports: is a dictionary whose keys are strings each identifying a different bidder and whose
+    values are sets of strings representing the set of bidders to which the bidder identified by the
+    key reports the information about the auction
+    :param bids: is a dictionary whose keys are strings each identifying a different bidder and whose
+    values are numbers defining the bid of the bidder identified by that key
+    :return: allocation = true if bidder has product false if not and payment = the value of the revenue from the buyer
+    """
     def mudan_auction(self, k, seller_net, reports, bids):
+
         payments = {}
         allocation = {}
         for seller in seller_net:
@@ -216,10 +237,18 @@ class SocNetMec:
 
         return allocation, payments
 
+    """
+    The mudar - Multi-Unit Double Auction for Real-Time trading auction implementation
+    :param k: is the number of item to sell
+    :param seller_net: is a set of strings each identifying a different bidder
+    :param reports: is a dictionary whose keys are strings each identifying a different bidder and whose
+    values are sets of strings representing the set of bidders to which the bidder identified by the
+    key reports the information about the auction
+    :param bids: is a dictionary whose keys are strings each identifying a different bidder and whose
+    values are numbers defining the bid of the bidder identified by that key 
+    :return: allocation = true if bidder has product false if not and payment = the value of the revenue from the buyer
+    """
     def mudar_auction(self, k, seller_net, reports, bids):
-        payments = {}
-        allocation = {}
-
         # Step 1: Find the k highest bidders
         highest_bidders = sorted(bids, key=bids.get, reverse=True)[:k]
 
