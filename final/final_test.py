@@ -8,7 +8,7 @@ def input_data():
     n = 100
     G = randomG(n, 0.3) #This will be updated to the network model of net_x
     k = 5
-    T = 5
+    T = 10
 
     #for the oracle val
     val = dict()
