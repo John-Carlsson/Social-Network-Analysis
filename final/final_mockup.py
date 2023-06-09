@@ -217,6 +217,9 @@ class SocNetMec:
         return allocation, payments
 
     def mudar_auction(self, k, seller_net, reports, bids):
+        payments = {}
+        allocation = {}
+
         # Step 1: Find the k highest bidders
         highest_bidders = sorted(bids, key=bids.get, reverse=True)[:k]
 
@@ -228,6 +231,6 @@ class SocNetMec:
 
         # Step 3: Allocate items and calculate payments
         allocation = {bidder: bidder in highest_bidders for bidder in bids}
-        payments = {bidder: clearing_price - bids[bidder] if bidder in highest_bidders else 0 for bidder in bids}
+        payments = {bidder: bids[bidder] - clearing_price if bidder in highest_bidders else 0 for bidder in bids}
 
         return allocation, payments
