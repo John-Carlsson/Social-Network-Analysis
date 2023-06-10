@@ -6,12 +6,13 @@ import networkx as nx
 import random
 
 class SocNetMec:
-    PAYING_FOR_REPORT = 10
+    PAYING_FOR_REPORT = 5
     
     def __init__(self, G, T, k):
         self.G = G
         self.T = T
         self.k = k
+        self.SortedArray = []
 
     def __mock_auction(self, k, seller_net, reports, bids):
         allocation = dict()
@@ -48,9 +49,44 @@ class SocNetMec:
     @:return auction = random type of the auction
     """
     def __init(self, t):
-        u = random.choice(list(self.G.nodes()))
+        u = self.SortedArray[t]
         auction = self.choose_auction_format(t)
         return u, auction
+
+    """
+    Method sort nodes by its degree
+    """
+    def sorted_by_degree(self):
+        degrees = dict(self.G.degree())
+
+        # Sort nodes based on degree in descending order
+        sorted_nodes = sorted(degrees, key=degrees.get, reverse=True)
+        self.SortedArray = sorted_nodes
+
+    """
+    Method sort nodes by its centrality
+    """
+    def sorted_by_centrality(self):
+        # Calculate the degree centrality of each node
+        degree_centrality = nx.degree_centrality(self.G)
+
+        # Sort nodes based on degree centrality in descending order
+        sorted_nodes = sorted(degree_centrality, key=degree_centrality.get, reverse=True)
+        self.SortedArray = sorted_nodes
+
+    """
+    Method sort nodes by its degree and centrality
+    """
+    def sorted_by_degree_and_centrality(self):
+        centrality = nx.degree_centrality(self.G)
+        degrees = dict(self.G.degree())
+        degree_and_centrality = dict()
+        for key in centrality:
+            degree_and_centrality[key] = centrality[key] * degrees[key]
+
+        sorted_degree_and_centrality = {k: v for k, v in sorted(degree_and_centrality.items(), key=lambda item: item[1], reverse=True)}
+        self.SortedArray = list(sorted_degree_and_centrality.keys())
+
 
     """
     Getting random auction type
@@ -58,7 +94,7 @@ class SocNetMec:
     @:return auction type
     """
     def choose_auction_format(self, t):
-        if t % 3 == 0:
+        if t % 1 == 0:
             return self.vcg_auction
         elif t % 3 == 1:
             return self.mudan_auction

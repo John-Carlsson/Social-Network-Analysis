@@ -17,8 +17,9 @@ def read_graph(fileName):
 
 def input_data():
     G = read_graph('net_3')
-    k = 5
-    T = 10
+    numbers_of_nodes = G.number_of_nodes()
+    k = random.randint(numbers_of_nodes * 0.005, numbers_of_nodes * 0.05)
+    T = 10000
 
     #for the oracle val
     val = dict()
@@ -70,8 +71,10 @@ if __name__ == '__main__':
     G, k, T, val, p = input_data()
     snm = SocNetMec(G, k, T)
     revenue = 0
+    snm.sorted_by_degree_and_centrality()
     for step in range(T):
         allocation, payment = snm.run(step, prob, valf)
         revenue += getRevenue(allocation, payment)
-    print(revenue)
+    print("Total revenue: " + str(revenue))
+    print("Average revenue: " + str(revenue/T))
 
