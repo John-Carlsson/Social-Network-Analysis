@@ -71,7 +71,7 @@ if __name__ == '__main__':
     G, k, T, val, p = input_data()
     snm = SocNetMec(G, k, T)
     revenue = 0
-    snm.sorted_by_degree_and_centrality()
+    snm.sorted_by_centrality()
     for step in range(T):
         allocation, payment = snm.run(step, prob, valf)
         revenue += getRevenue(allocation, payment)

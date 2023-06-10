@@ -146,14 +146,90 @@ that the graphs are indeed very similar.
 
 
 \section{Task2}
-This section describes the methodology used in task 1.
+This section describes the methodology used in task 2.
 
 \subsection{Analysis}
-First an analysis was
+First an analysis was made of implementing the VCG, MUDAR, and MUDAR algorithms and testing its gained revenue. We tested the algorithms on the assigned graph when we were picking the unsorted nodes. Then we try to improve the revenue by picking the sorted nodes by degree, centrality, or combination of more properties of the nodes and comparing them.  
 
 \subsection{Experiments}
-words\\
-words
+As we mentioned in the analysis we have tested all implemented methods with random picking nodes. We have tested it three times on time horizont 100000, k was randomly selected between 0,5\% to 5\% of nodes. We got the following average revenues per one-time horizont:
+
+\begin{center}
+	Comparing methods with a random choice of points
+	\vspace{10pt}
+   \begin{tabular}{|c|c|c|c|}
+        \hline
+        Attempt & VCG & MUDAN & MUDAR \\
+        \hline
+        1 & 159.161 & 38.904 & 147.700 \\
+        \hline
+        2 & 164.747 & 38.958 & 148.427 \\
+        \hline
+        3 & 168.952 & 40.045 & 148.356 \\
+        \hline
+    \end{tabular}
+
+\end{center}
+
+We can see that the most powerful algorithm with the biggest average revenue is the VCG algorithm followed by the MUDAR algorithm. The MUDAN algorithm gives really bad revenues. We can mention, that the revenue of the VCG algorithm depends on the amount of money donated for the report to the friend. We choose the revenue for reporting a friend to value 5. Value 10 was the average revenue of about 100 per time horizon, with revenue for report 1 being the average revenue of about 200. 
+
+In the next experiment, we tested the improving impact of sorting the nodes by degree, centrality, and by combining both values. 
+
+As the first improvement, we use sorting by the highest degree of the node.
+\begin{center}
+	Revenues after sorting nodes by degree
+	\vspace{10pt}
+   \begin{tabular}{|c|c|c|c|}
+        \hline
+        Attempt & VCG & MUDAN & MUDAR \\
+        \hline
+        1 & 179.515 & 40.818 & 166.346 \\
+        \hline
+        2 & 175.252 & 40.694 & 165.626 \\
+        \hline
+        3 & 175.186 & 40.827 & 164.436 \\
+        \hline
+    \end{tabular}
+\end{center}
+
+We can see that revenues were slightly improved. In the next case, we tried sorting nodes by centrality.
+
+ \begin{center}
+	Revenues after sorting nodes by centrality
+	\vspace{10pt}
+   \begin{tabular}{|c|c|c|c|}
+        \hline
+        Attempt & VCG & MUDAN & MUDAR \\
+        \hline
+        1 & 181.819 & 41.268 & 155.774 \\
+        \hline
+        2 & 178.263 & 41.624 & 160.985 \\
+        \hline
+        3 & 177.412 & 41.305 & 163.764 \\
+        \hline
+    \end{tabular}
+\end{center}
+
+In this case, we can see small improvements in VCG and MUDAN algorithms, but also a small degradation of revenue in the Mudar algorithm.
+What if we will put both these sorting together? In the next case, we have just sorted the nodes by combining the centrality and degree of the node. We created this metric by multiplying the centrality and degree. The results were as follows:
+
+ \begin{center}
+	Revenues after sorting nodes by combination
+	\vspace{10pt}
+   \begin{tabular}{|c|c|c|c|}
+        \hline
+        Attempt & VCG & MUDAN & MUDAR \\
+        \hline
+        1 & 178.239 & 42.328 & 168.326 \\
+        \hline
+        2 & 181.961 & 41.205 & 171.417 \\
+        \hline
+        3 & 180.715 & 41.072 & 167.209 \\
+        \hline
+    \end{tabular}
+\end{center}
+	
+The results were improved very little except in the Mudar, where the improvement is obvious. The behavior seems more stable than without the combination. 
 
 \section{Results & Conclusion}
 This section presents the results of the project.
@@ -182,6 +258,7 @@ The parameters for the model was the following:
 
 Degree is a list containing the number of neighbors for each node.
 
-
+\subsection[short]{Task 2}
+Based on the previous chapter, the VGC and Mudar auctions give comparable results. Mudan gives really poor revenues. In the next part, we have tried to maximalize the revenue by picking the best nodes. The best result proved to be combining centrality and degree.
 
 \end{document}
