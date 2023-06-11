@@ -49,7 +49,7 @@ class SocNetMec:
     @:return auction = random type of the auction
     """
     def __init(self, t):
-        u = self.SortedArray[t]
+        u = self.SortedArray[t % self.G.number_of_nodes()]
         auction = self.choose_auction_format(t)
         return u, auction
 
